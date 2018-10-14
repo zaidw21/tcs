@@ -1,8 +1,75 @@
-package com.mindtree.cape;
+Problem 1 :
 
-import java.util.Arrays;
-import java.util.Scanner;
+ static int[] helpPrivateRyan(String S, String[] arr){
+    	int M = 1000000007; 
+    	S = S.toLowerCase();
+    	int[] subsequenceCount = new int[arr.length];
+        for (int i=0;i<arr.length;i++) {
+        	int n = count(S,arr[i].charAt(0));
+        	int sum = (n*(n+1));
+        	subsequenceCount[i]=sum%M;	
+        }
+        return subsequenceCount;
+    }
+    
+    public static int count(String s, char c) 
+    { 
+        int res = 0; 
+        for (int i=0; i<s.length(); i++) 
+        { 
+            if (s.charAt(i) == c) 
+            res++; 
+        }  
+        return res; 
+    } 
 
+
+
+
+**********************************************************************************************************************
+
+Problem 1 Alternate :
+
+    static int[] helpPrivateRyan(String S, String[] arr){
+    	int M = 1000000007; 
+    	S = S.toLowerCase();
+    	int[] subsequenceCount = new int[arr.length];
+        for (int i=0;i<arr.length;i++) {
+        	Set<String> finalSet = new HashSet<>();
+        	int index = S.indexOf(arr[i]);
+        	if(index==-1)
+        		continue;
+        	while(index!=-1) {
+        		String[] str = getAllSubstring(S.substring(0, index+1));
+					for (String string : str) {
+						finalSet.add(string);
+					} 
+	            	index = S.indexOf(arr[i], S.indexOf(arr[i]) + index);
+        		}
+        	subsequenceCount[i]=finalSet.size()%M;	
+        }
+        return subsequenceCount;
+    }
+    
+    static String[] getAllSubstring(String subS){
+    	String[] res = new String[subS.length()];
+    	int beginIndex = subS.length()-1;
+    	for(int i=0;i<subS.length();i++) {
+    		res[i] = subS.substring(beginIndex, subS.length());
+    		beginIndex--;
+    	}
+    	return res;
+    }
+    
+    
+    
+    
+*******************************************************************************************************************
+
+Problem 2 :
+
+
+import java.util.*;
 public class As {
 
 	public static void main(String[] arg)  {
